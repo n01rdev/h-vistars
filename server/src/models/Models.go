@@ -2,19 +2,6 @@ package models
 
 import "gorm.io/gorm"
 
-type Beat struct {
-	gorm.Model
-	Title             string `json:"title"`
-	Author            string `json:"author" gorm:"foreignKey:Author"`
-	Year              uint   `json:"year"`
-	GenreID           uint   `json:"genreId" gorm:"foreignKey:GenreID"`
-	Bpm               uint   `json:"bpm"`
-	Key               string `json:"key"`
-	DurationInSeconds uint   `json:"durationInSeconds"`
-	Price             uint   `json:"price"`
-	ThumbnailURL      string `json:"thumbnailUrl"`
-}
-
 type User struct {
 	gorm.Model
 	Username        string `json:"username"`
@@ -24,10 +11,23 @@ type User struct {
 	Email           string `json:"email" gorm:"unique"`
 	Password        string `json:"password"`
 	PhoneNumber     string `json:"phoneNumber" gorm:"unique"`
-	Country         string `json:"country" gorm:"foreignKey:Country"`
+	CountryID       uint   `json:"countryId" gorm:"foreignKey:CountryID"`
 	Beats           []Beat `json:"beats" gorm:"foreignKey:Author"`
 	IsEmailVerified bool   `json:"isEmailVerified" gorm:"default:false"`
 	Role            string `json:"role" gorm:"foreignKey:Role; default:standard"`
+}
+
+type Beat struct {
+	gorm.Model
+	Title             string `json:"title"`
+	Author            string `json:"author" gorm:"foreignKey:Username"`
+	Year              uint   `json:"year"`
+	GenreID           uint   `json:"genreId" gorm:"foreignKey:GenreID"`
+	Bpm               uint   `json:"bpm"`
+	Key               string `json:"key"`
+	DurationInSeconds uint   `json:"durationInSeconds"`
+	Price             uint   `json:"price"`
+	ThumbnailURL      string `json:"thumbnailUrl"`
 }
 
 type Role struct {
@@ -37,6 +37,7 @@ type Role struct {
 
 type Country struct {
 	gorm.Model
+	ID   uint   `json:"id"`
 	Name string `json:"name" gorm:"unique"`
 }
 

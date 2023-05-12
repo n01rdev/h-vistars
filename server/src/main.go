@@ -9,7 +9,7 @@ import (
 func main() {
 	r := gin.Default()
 
-	database.ConnectDatabase()
+	database.Connect()
 
 	var api = r.Group("/api")
 
