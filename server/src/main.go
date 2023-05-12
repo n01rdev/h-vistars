@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"h-vistars/server/src/controllers"
 	"h-vistars/server/src/database"
@@ -8,6 +9,8 @@ import (
 
 func main() {
 	r := gin.Default()
+
+	r.Use(cors.Default())
 
 	database.Connect()
 
@@ -24,7 +27,7 @@ func main() {
 	api.PATCH("/users/:id", controllers.UpdateUser)
 	api.DELETE("/users/:id", controllers.DeleteUser)
 
-	api.POST("/register", controllers.CreateUser)
+	api.POST("/register", cors.Default(), controllers.CreateUser)
 	//api.POST("/login", controllers.LoginUser)
 
 	err := r.Run()

@@ -18,11 +18,12 @@ function RegisterForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("localhost:8080/api/login", {
+        fetch("http://localhost:8080/api/register", {
             method: "POST",
             body: JSON.stringify(formData),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "application/json",
             }
         })
             .then((response) => response.json())
