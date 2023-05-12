@@ -19,6 +19,14 @@ func main() {
 	api.PATCH("/beats/:id", controllers.UpdateBeat)
 	api.DELETE("/beats/:id", controllers.DeleteBeat)
 
+	api.GET("/users", controllers.GetUsers)
+	api.GET("/users/:id", controllers.GetUserByID)
+	api.PATCH("/users/:id", controllers.UpdateUser)
+	api.DELETE("/users/:id", controllers.DeleteUser)
+
+	api.POST("/register", controllers.CreateUser)
+	//api.POST("/login", controllers.LoginUser)
+
 	err := r.Run()
 	if err != nil {
 		return
