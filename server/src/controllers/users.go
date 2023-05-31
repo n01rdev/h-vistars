@@ -9,7 +9,7 @@ import (
 
 func GetUsers(c *gin.Context) {
 	var users []models.User
-	database.DB.Find(&users)
+	database.DB.Preload("Beats").Find(&users)
 	c.JSON(http.StatusOK, gin.H{"data": users})
 }
 
@@ -21,16 +21,6 @@ func GetUserByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": user})
-}
-
-func CreateUser(c *gin.Context) {
-	var user models.User
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	database.DB.Create(&user)
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
 

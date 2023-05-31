@@ -27,8 +27,8 @@ func main() {
 	api.PATCH("/users/:id", controllers.UpdateUser)
 	api.DELETE("/users/:id", controllers.DeleteUser)
 
-	api.POST("/register", cors.Default(), controllers.CreateUser)
-	//api.POST("/login", controllers.LoginUser)
+	api.POST("/register", cors.Default(), controllers.Register)
+	api.POST("/login", controllers.Login)
 
 	err := r.Run()
 	if err != nil {

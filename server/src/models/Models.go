@@ -4,13 +4,13 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Username        string `json:"username"`
+	Username        string `json:"username" gorm:"size:255;not null;unique"`
 	AvatarURL       string `json:"avatarUrl"`
 	Name            string `json:"name"`
 	LastName        string `json:"lastName"`
-	Email           string `json:"email" gorm:"unique"`
-	Password        string `json:"password"`
-	PhoneNumber     string `json:"phoneNumber" gorm:"unique"`
+	Email           string `json:"email" gorm:"unique;size:255;not null"`
+	Password        string `json:"password" gorm:"size:255;not null"`
+	PhoneNumber     string `json:"phoneNumber" gorm:"size:255;not null"`
 	CountryID       uint   `json:"countryId" gorm:"foreignKey:CountryID"`
 	Beats           []Beat `json:"beats" gorm:"foreignKey:Author"`
 	IsEmailVerified bool   `json:"isEmailVerified" gorm:"default:false"`
@@ -20,7 +20,7 @@ type User struct {
 type Beat struct {
 	gorm.Model
 	Title             string `json:"title"`
-	Author            string `json:"author" gorm:"foreignKey:Username"`
+	Author            uint   `json:"author" gorm:"foreignKey:Username"`
 	Year              uint   `json:"year"`
 	GenreID           uint   `json:"genreId" gorm:"foreignKey:GenreID"`
 	Bpm               uint   `json:"bpm"`
